@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Master;
 
-use App\Http\Controllers\Controller;
-use App\Models\Master\Pegawai;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Master\Pegawai;
+use App\Http\Controllers\Controller;
 
 class PegawaiController extends Controller
 {
@@ -61,6 +62,14 @@ class PegawaiController extends Controller
             'image'  => $imageName,
             'status' => 1,
         ]);
+
+        if($pegawai) {
+            // Logika tambahan jika diperlukan
+            User::create([
+                'pegawai_id' => $pegawai->id,
+                'status'     => 2,
+            ]);
+        }
 
         // 4. Response JSON (Status 201 untuk Created)
         return response()->json([

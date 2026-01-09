@@ -40,3 +40,10 @@ Route::post('pegawai/storePegawai', [PegawaiController::class, 'storePegawai']);
 Route::get('pegawai/editPegawai/{id}', [PegawaiController::class, 'editPegawai']);
 Route::post('pegawai/updatePegawai/{id}', [PegawaiController::class, 'updatePegawai']);
 Route::post('pegawai/deletePegawai/{id}', [PegawaiController::class, 'deletePegawai']);
+
+Route::get('/users', function () {
+    return view('modules.users.views.user');
+});
+Route::get('users/getUsers', [App\Http\Controllers\Master\UserController::class, 'getUsers']);
+Route::get('users/editUsers/{id}', [App\Http\Controllers\Master\UserController::class, 'editUsers']);
+Route::post('users/updateUsers/{id}', [App\Http\Controllers\Master\UserController::class, 'updateUsers']);

@@ -17,4 +17,9 @@ class Pegawai extends Model
         'image',
         'status',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(\App\Models\User::class, 'pegawai_id', 'id');
+    }
 }
