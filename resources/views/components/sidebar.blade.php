@@ -18,6 +18,7 @@
                         <li><a href="/driver"> Driver</a></li>
                         <li><a href="/suplier"> Suplier</a></li>
                         <li><a href="/kendaraan"> kendaraan</a></li>
+                        <li><a href="/material"> Material</a></li>
                     </ul>
                 </li>
             </ul>

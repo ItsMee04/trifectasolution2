@@ -81,5 +81,14 @@ Route::middleware('auth')->group(function () {
     Route::post('kendaraan/updateKendaraan/{id}', [KendaraanController::class, 'updateKendaraan']);
     Route::post('kendaraan/deleteKendaraan/{id}', [KendaraanController::class, 'deleteKendaraan']);
 
+    Route::get('/material', function () {
+        return view('modules.material.views.material');
+    });
+    Route::get('material/getMaterial', [App\Http\Controllers\Master\MaterialController::class, 'getMaterial']);
+    Route::post('material/storeMaterial', [App\Http\Controllers\Master\MaterialController::class, 'storeMaterial']);
+    Route::get('material/editMaterial/{id}', [App\Http\Controllers\Master\MaterialController::class, 'editMaterial']);
+    Route::post('material/updateMaterial/{id}', [App\Http\Controllers\Master\MaterialController::class, 'updateMaterial']);
+    Route::post('material/deleteMaterial/{id}', [App\Http\Controllers\Master\MaterialController::class, 'deleteMaterial']);
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
