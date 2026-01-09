@@ -1,12 +1,13 @@
  <div class="table-responsive">
-     <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped" id="usersTable"
+     <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped" id="driverTable"
          style="width: 100%">
          <thead class="student-thread">
              <tr>
                  <th>No.</th>
+                 <th>Kode Driver</th>
                  <th>Nama</th>
-                 <th>Role</th>
-                 <th>Email</th>
+                 <th>Kontak</th>
+                 <th>Alamat</th>
                  <th>Status</th>
                  <th class="text-end">Action</th>
              </tr>
@@ -20,14 +21,14 @@
  <script>
      $(document).ready(function() {
          // Panggil fungsi inisialisasi
-         initUsersTable();
+         initDriverTable();
      });
 
      // 1. Service: Fungsi untuk menyediakan data
-     function getUsersService() {
+     function getDriverService() {
          // Kita mengembalikan objek AJAX agar bisa digunakan oleh DataTable
          return {
-             "url": "/users/getUsers", // Menggunakan route name Laravel
+             "url": "/driver/getDriver", // Menggunakan route name Laravel
              "type": "GET",
              "dataSrc": function(json) {
                  // Memastikan data yang diterima sesuai struktur
@@ -37,15 +38,15 @@
      }
 
      // 2. Logic: Fungsi untuk inisialisasi DataTable
-     function initUsersTable() {
-         if ($('#usersTable').length > 0) {
-             $('#usersTable').DataTable({
+     function initDriverTable() {
+         if ($('#driverTable').length > 0) {
+             $('#driverTable').DataTable({
                  "destroy": true,
                  "pagingType": "simple_numbers", // Menampilkan nomor halaman lengkap
                  "serverSide": false,
 
                  // PERUBAHAN DI SINI: Gunakan "ajax", bukan "data"
-                 "ajax": getUsersService(),
+                 "ajax": getDriverService(),
 
                  "columns": [{
                          "data": null,
@@ -54,27 +55,16 @@
                          }
                      },
                      {
-                         "data": "pegawai.nama"
+                         "data": "kode"
                      },
                      {
-                         "data": "role.role",
-                         "render": function(data) {
-                             if (data == null || data == '') {
-                                 return `<span class="badge bg-danger">ROLE BELUM DIATUR</span>`;
-                             } else {
-                                 return `<span class="badge bg-success">${data}</span>`;
-                             }
-                         }
+                         "data": "nama"
                      },
                      {
-                         "data": "email",
-                         "render": function(data) {
-                             if (data == null || data == '') {
-                                 return `<span class="badge bg-danger">EMAIL BELUM DIATUR</span>`;
-                             } else {
-                                 return `<span class="badge bg-success">${data}</span>`;
-                             }
-                         }
+                         "data": "kontak"
+                     },
+                     {
+                         "data": "alamat"
                      },
                      {
                          "data": "status",
@@ -95,6 +85,9 @@
                         <div class="actions">
                             <a href="javascript:void(0);" class="btn btn-sm bg-danger-light btn-edit me-2" data-id="${row.id}">
                                 <i class="feather-edit"></i>
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-sm bg-danger-light btn-delete" data-id="${row.id}">
+                                <i class="feather-trash-2"></i>
                             </a>
                         </div>`;
                          }

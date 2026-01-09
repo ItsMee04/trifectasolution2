@@ -6,22 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>Trifecta - Login</title>
 
-    <link rel="shortcut icon" href="{{asset('assets')}}/img/favicon.png">
+    <link rel="shortcut icon" href="{{ asset('assets') }}/img/favicon.png">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="{{asset('assets')}}/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/bootstrap/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="{{asset('assets')}}/plugins/feather/feather.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/feather/feather.css">
 
-    <link rel="stylesheet" href="{{asset('assets')}}/plugins/icons/flags/flags.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/icons/flags/flags.css">
 
-    <link rel="stylesheet" href="{{asset('assets')}}/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="{{asset('assets')}}/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="{{asset('assets')}}/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/toastr/toatr.css">
+
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css">
 </head>
 
 <body>
@@ -31,14 +33,15 @@
             <div class="container">
                 <div class="loginbox">
                     <div class="login-left">
-                        <img class="img-fluid" src="{{asset('assets')}}/img/login.png" alt="Logo">
+                        <img class="img-fluid" src="{{ asset('assets') }}/img/login.png" alt="Logo">
                     </div>
                     <div class="login-right">
                         <div class="login-right-wrap">
                             <h1>Welcome to <b class="text-primary">Trifecta Panel</b></h1>
                             <h2>Sign in</h2>
 
-                            <form action="login" method="POST">
+                            <form id="loginForm" action="login" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <label>Email <span class="login-danger">*</span></label>
                                     <input class="form-control" type="text" name="email">
@@ -46,7 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Password <span class="login-danger">*</span></label>
-                                    <input class="form-control pass-input" type="text" name="password">
+                                    <input class="form-control pass-input" type="password" name="password">
                                     <span class="profile-views feather-eye toggle-password"></span>
                                 </div>
                                 <div class="forgotpass">
@@ -58,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary btn-block" type="submit">Login</button>
+                                    <button class="btn btn-primary btn-block" type="submit" id="btn-login">Login</button>
                                 </div>
                             </form>
 
@@ -73,13 +76,56 @@
     </div>
 
 
-    <script src="{{asset('assets')}}/js/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets') }}/js/jquery-3.6.0.min.js"></script>
 
-    <script src="{{asset('assets')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="{{asset('assets')}}/js/feather.min.js"></script>
+    <script src="{{ asset('assets') }}/js/feather.min.js"></script>
 
-    <script src="{{asset('assets')}}/js/script.js"></script>
+    <script src="{{ asset('assets') }}/plugins/toastr/toastr.min.js"></script>
+    <script src="{{ asset('assets') }}/plugins/toastr/toastr.js"></script>
+
+    <script src="{{ asset('assets') }}/js/script.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#loginForm').on('submit', function(e) {
+                e.preventDefault();
+
+                let btn = $('#btn-login');
+                let formData = $(this).serialize();
+
+                $.ajax({
+                    url: "{{ route('pushlogin') }}",
+                    type: "POST",
+                    data: formData,
+                    beforeSend: function() {
+                        btn.prop('disabled', true).text(
+                        'Memuat data...'); // Sesuai preferensi loading Anda
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            // Redirect setelah delay sedikit agar toast terlihat
+                            setTimeout(function() {
+                                window.location.href = response.redirect;
+                            }, 1500);
+                        }
+                    },
+                    error: function(xhr) {
+                        btn.prop('disabled', false).text('Login');
+
+                        let pesan = 'Terjadi kesalahan sistem';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            pesan = xhr.responseJSON.message;
+                        }
+                        toastr.error(pesan);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

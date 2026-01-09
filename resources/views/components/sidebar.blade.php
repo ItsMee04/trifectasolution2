@@ -15,6 +15,9 @@
                         <li><a href="/role"> Role</a></li>
                         <li><a href="/pegawai"> Pegawai</a></li>
                         <li><a href="/users"> Users</a></li>
+                        <li><a href="/driver"> Driver</a></li>
+                        <li><a href="/suplier"> Suplier</a></li>
+                        <li><a href="/kendaraan"> kendaraan</a></li>
                     </ul>
                 </li>
             </ul>
