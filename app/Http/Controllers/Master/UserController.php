@@ -75,19 +75,19 @@ class UserController extends Controller
         if (!$hasEmail || !$hasPassword) {
             // Jika user belum memiliki email & password (user baru)
             $rules = [
-                'email'    => 'required|unique:users,email',
-                'password' => 'required|min:6'
+                'emailPegawai'    => 'required|unique:users,email',
+                'passwordPegawai' => 'required|min:6'
             ];
         } else {
             // Jika user sudah memiliki email & password
-            if ($request->email !== $user->email) {
+            if ($request->emailPegawai !== $user->email) {
                 // Jika email diubah, validasi email harus unik
                 $rules['email'] = 'required|unique:users,email,' . $id;
             }
 
-            if (!empty($request->password)) {
+            if (!empty($request->passwordPegawai)) {
                 // Jika password diisi, cek agar tidak sama dengan yang lama
-                if (Hash::check($request->password, $user->password)) {
+                if (Hash::check($request->passwordPegawai, $user->password)) {
                     return response()->json(['success' => false, 'message' => 'Password baru tidak boleh sama dengan password lama.'], 400);
                 }
                 $rules['password'] = 'min:6';
@@ -99,9 +99,10 @@ class UserController extends Controller
 
         // Proses update data user
         $user->update([
-            'email'    => $request->email ?? $user->email,
-            'password' => !empty($request->password) ? Hash::make($request->password) : $user->password,
-            'role_id'  => $request->role ?? $user->role_id
+            'email'    => $request->emailPegawai ?? $user->email,
+            'password' => !empty($request->passwordPegawai) ? Hash::make($request->passwordPegawai) : $user->password,
+            'role_id'  => $request->role_id ?? $user->role_id,
+            'status'   => 1,
         ]);
 
         return response()->json(['success' => true, 'message' => "Data User Berhasil Diperbarui"]);

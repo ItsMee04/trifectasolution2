@@ -43,7 +43,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label>Role <span class="login-danger">*</span></label>
-                                    <select class="form-control select" id="selectRole" name="role_id">
+                                    <select class="form-control" id="selectRole" name="role_id">
                                         <option>Memuat data...</option>
                                     </select>
                                 </div>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="btnUpdatePegawai" class="btn btn-primary">Simpan Pegawai</button>
+                    <button type="submit" id="btnUpdateUsers" class="btn btn-primary">Simpan Users</button>
                 </div>
             </form>
         </div>

@@ -107,10 +107,10 @@
         });
 
         // --- LOGIC: SUBMIT FORM EDIT PEGAWAI ---
-        $('#formEditPegawai').on('submit', function(e) {
+        $('#formEditUsers').on('submit', function(e) {
             e.preventDefault();
 
-            const btn = $('#btnUpdatePegawai');
+            const btn = $('#btnUpdateUsers');
             const formData = new FormData(this); // Sudah benar menggunakan FormData
             const url = $(this).attr('action');
 
@@ -138,11 +138,10 @@
                             tapToDismiss: !1,
                         });
 
-                    $('#formEditPegawai')[0].reset();
-                    $('#previewContainerEdit').hide(); // Reset preview container edit
+                    $('#formEditUsers')[0].reset();
 
-                    btn.prop('disabled', false).html('Simpan Pegawai');
-                    $('#pegawaiTable').DataTable().ajax.reload();
+                    btn.prop('disabled', false).html('Simpan Users');
+                    $('#usersTable').DataTable().ajax.reload();
                 },
                 error: function(xhr) {
                     let errorMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr
@@ -154,12 +153,12 @@
                             tapToDismiss: !1,
                         }
                     );
-                    btn.prop('disabled', false).html('Simpan Pegawai');
+                    btn.prop('disabled', false).html('Simpan Users');
                 }
             });
         });
 
-        // --- LOGIC: HAPUS PEGAWAI DENGAN SWEETALERT2 ---
+        // --- LOGIC: HAPUS USERS DENGAN SWEETALERT2 ---
         $(document).on('click', '.btn-delete', function() {
             let id = $(this).data('id');
             Swal.fire({

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/datatables/datatables.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/toastr/toatr.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css">
 </head>
 
@@ -50,6 +51,8 @@
     <script src="{{ asset('assets') }}/plugins/toastr/toastr.js"></script>
     <script src="{{ asset('assets') }}/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="{{ asset('assets') }}/plugins/sweetalert/sweetalerts.min.js"></script>
+    {{-- <script src="{{ asset('assets') }}/plugins/select2/js/select2.min.js"></script>
+    <script src="{{ asset('assets') }}/plugins/moment/moment.min.js"></script> --}}
     <script src="{{ asset('assets') }}/js/script.js"></script>
 </body>
 
