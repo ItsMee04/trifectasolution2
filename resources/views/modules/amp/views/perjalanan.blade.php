@@ -51,9 +51,117 @@
 <script src="{{ asset('assets') }}/js/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        // --- LOGIC: MEMBUKA MODAL TAMBAH MATERIAL & LOAD DATA MATERIAL ---
+        function loadMaterial() {
+            let select = $('#selectMaterial');
+
+            $.ajax({
+                url: '/material/getMaterial', // Sesuaikan dengan route Laravel Anda
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // Kosongkan select dan beri opsi default
+                        select.empty();
+                        select.append('<option value="">Pilih Material</option>');
+
+                        // Looping data dari backend
+                        $.each(response.data, function(key, material) {
+                            select.append(
+                                `<option value="${material.id}">${material.nama}</option>`);
+                        });
+                    }
+                },
+                error: function() {
+                    select.html('<option value="">Gagal memuat data</option>');
+                }
+            });
+        }
+
+        // --- LOGIC: LOAD DATA KENDARAAN ---
+        function loadKendaraan() {
+            const select = $('#selectKendaraan');
+
+            $.ajax({
+                url: '/kendaraan/getKendaraan', // Sesuaikan dengan route Laravel Anda
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // Kosongkan select dan beri opsi default
+                        select.empty();
+                        select.append('<option value="">Pilih No Polisi</option>');
+
+                        // Looping data dari backend
+                        $.each(response.data, function(key, kendaraan) {
+                            select.append(
+                                `<option value="${kendaraan.id}">${kendaraan.nomor}</option>`);
+                        });
+                    }
+                },
+                error: function() {
+                    select.html('<option value="">Gagal memuat data</option>');
+                }
+            });
+        }
+
+        // --- LOGIC: LOAD DATA DRIVER ---
+        function loadDriver() {
+            const select = $('#selectDriver');
+
+            $.ajax({
+                url: '/driver/getDriver', // Sesuaikan dengan route Laravel Anda
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // Kosongkan select dan beri opsi default
+                        select.empty();
+                        select.append('<option value="">Pilih Driver</option>');
+
+                        // Looping data dari backend
+                        $.each(response.data, function(key, driver) {
+                            select.append(
+                                `<option value="${driver.id}">${driver.nama}</option>`);
+                        });
+                    }
+                },
+                error: function() {
+                    select.html('<option value="">Gagal memuat data</option>');
+                }
+            });
+        }
+
+        // --- LOGIC: LOAD DATA SUPLIER ---
+        function loadSuplier() {
+            const select = $('#selectSuplier');
+
+            $.ajax({
+                url: '/suplier/getSuplier', // Sesuaikan dengan route Laravel Anda
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // Kosongkan select dan beri opsi default
+                        select.empty();
+                        select.append('<option value="">Pilih Suplier</option>');
+
+                        // Looping data dari backend
+                        $.each(response.data, function(key, suplier) {
+                            select.append(
+                                `<option value="${suplier.id}">${suplier.nama}</option>`);
+                        });
+                    }
+                },
+                error: function() {
+                    select.html('<option value="">Gagal memuat data</option>');
+                }
+            });
+        }
+
         // Event listener untuk tombol tambah material
         $('#tambahPerjalanan').on('click', function(e) {
             e.preventDefault(); // Mencegah reload halaman jika menggunakan tag <a>
+            loadMaterial(); // Panggil fungsi untuk memuat data material
+            loadKendaraan(); // Panggil fungsi untuk memuat data kendaraan
+            loadDriver(); // Panggil fungsi untuk memuat data driver
+            loadSuplier(); // Panggil fungsi untuk memuat data suplier
             // Memanggil modal menggunakan Bootstrap 5 function
             $('#modalTambah').modal('show');
             // Opsional: Mengubah judul modal secara dinamis
@@ -84,13 +192,13 @@
                 success: function(response) {
                     $('#modalTambah').modal('hide');
                     toastr.success("Material berhasil disimpan!");
-                    $('#materialTable').DataTable().ajax.reload();
+                    $('#perjalananTable').DataTable().ajax.reload();
                 },
                 error: function(xhr) {
                     toastr.error("Terjadi kesalahan: " + xhr.responseText);
                 },
                 complete: function() {
-                    btn.prop('disabled', false).html('Simpan Material');
+                    btn.prop('disabled', false).html('Simpan Perjalanan');
                 }
             });
         });

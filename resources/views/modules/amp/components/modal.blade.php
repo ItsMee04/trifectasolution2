@@ -25,7 +25,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label> Material <span class="login-danger">*</span></label>
-                                    <select class="form-control" id="selectMaterial" name="role_id">
+                                    <select class="form-control" id="selectMaterial" name="material_id">
                                         <option>Memuat data...</option>
                                     </select>
                                 </div>

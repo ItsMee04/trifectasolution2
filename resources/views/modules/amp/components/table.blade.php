@@ -69,7 +69,7 @@
                          "data": "kode"
                      },
                      {
-                         "data": "kendaraan.no_polisi"
+                         "data": "kendaraan.nomor"
                      },
                      {
                          "data": "driver.nama"

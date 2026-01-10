@@ -18,6 +18,9 @@ use Termwind\Components\Raw;
 |
 */
 Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('login');
+    });
     Route::get('/login', function () {
         return view('login');
     })->name('login');

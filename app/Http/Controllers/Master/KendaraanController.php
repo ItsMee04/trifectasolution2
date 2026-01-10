@@ -22,6 +22,8 @@ class KendaraanController extends Controller
         }
 
         return response()->json([
+            'status'    => 200,
+            'success'   => true,
             'message' => 'Active vehicles retrieved successfully.',
             'data' => $data
         ], 200);
