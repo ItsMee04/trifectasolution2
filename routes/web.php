@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Master\RoleController;
 use App\Http\Controllers\Master\PegawaiController;
 use App\Http\Controllers\Master\KendaraanController;
+use Termwind\Components\Raw;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,15 @@ Route::middleware('auth')->group(function () {
     Route::get('material/editMaterial/{id}', [App\Http\Controllers\Master\MaterialController::class, 'editMaterial']);
     Route::post('material/updateMaterial/{id}', [App\Http\Controllers\Master\MaterialController::class, 'updateMaterial']);
     Route::post('material/deleteMaterial/{id}', [App\Http\Controllers\Master\MaterialController::class, 'deleteMaterial']);
+
+    Route::get('/perjalanan', function () {
+        return view('modules.amp.views.perjalanan');
+    });
+    Route::get('perjalanan/getPerjalanan', [App\Http\Controllers\Transaksi\PerjalananController::class, 'getPerjalanan']);
+    Route::post('perjalanan/storePerjalanan', [App\Http\Controllers\Transaksi\PerjalananController::class, 'storePerjalanan']);
+    Route::get('perjalanan/editPerjalanan/{id}', [App\Http\Controllers\Transaksi\PerjalananController::class, 'editPerjalanan']);
+    Route::post('perjalanan/updatePerjalanan/{id}', [App\Http\Controllers\Transaksi\PerjalananController::class, 'updatePerjalanan']);
+    Route::post('perjalanan/deletePerjalanan/{id}', [App\Http\Controllers\Transaksi\PerjalananController::class, 'deletePerjalanan']);
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

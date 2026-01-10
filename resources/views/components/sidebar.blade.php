@@ -21,6 +21,13 @@
                         <li><a href="/material"> Material</a></li>
                     </ul>
                 </li>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-calendar"></i> <span> Asphalt Mixing Plant</span>
+                        <span class="menu-arrow"></span></a>
+                    <ul>
+                        <li><a href="/perjalanan"> Perjalanan</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -94,4 +101,3 @@
         }
     });
 </script>
-

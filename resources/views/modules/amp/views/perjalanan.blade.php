@@ -7,10 +7,10 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-sub-header">
-                        <h3 class="page-title">Halaman Material</h3>
+                        <h3 class="page-title">Halaman AMP</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/material">Material</a></li>
-                            <li class="breadcrumb-item active">Data Material</li>
+                            <li class="breadcrumb-item"><a href="/perjalanan">Perjalanan</a></li>
+                            <li class="breadcrumb-item active">Data Material Masuk</li>
                         </ul>
                     </div>
                 </div>
@@ -25,17 +25,17 @@
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="page-title">Data Material</h3>
+                                    <h3 class="page-title">Data Material Masuk</h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
-                                    <a class="btn btn-primary" href="#" id="tambahMaterial"><i
+                                    <a class="btn btn-primary" href="#" id="tambahPerjalanan"><i
                                             class="fas fa-plus"></i></a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- TABLE HERE -->
-                        @include('modules.material.components.table')
+                        @include('modules.amp.components.table')
                         <!-- END TABLE HERE -->
 
                     </div>
@@ -45,24 +45,24 @@
     </div>
 
     <!-- MODAL HERE -->
-    @include('modules.material.components.modal')
+    @include('modules.amp.components.modal')
 @endsection
 
 <script src="{{ asset('assets') }}/js/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         // Event listener untuk tombol tambah material
-        $('#tambahMaterial').on('click', function(e) {
+        $('#tambahPerjalanan').on('click', function(e) {
             e.preventDefault(); // Mencegah reload halaman jika menggunakan tag <a>
             // Memanggil modal menggunakan Bootstrap 5 function
             $('#modalTambah').modal('show');
             // Opsional: Mengubah judul modal secara dinamis
-            $('#modalTambah .modal-title').text('TAMBAH MATERIAL');
+            $('#modalTambah .modal-title').text('TAMBAH PERJALANAN');
             // Reset form setiap kali modal dibuka
-            $('#formTambahMaterial')[0].reset();
+            $('#formTambahPerjalanan')[0].reset();
         });
 
-        $('#formTambahMaterial').on('submit', function(e) {
+        $('#formTambahPerjalanan').on('submit', function(e) {
             e.preventDefault();
 
             const btn = $('#btnSimpanMaterial'); // Pastikan ID tombol sesuai

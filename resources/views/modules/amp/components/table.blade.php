@@ -1,14 +1,19 @@
  <div class="table-responsive">
-     <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped" id="materialTable"
+     <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped" id="perjalananTable"
          style="width: 100%">
          <thead class="student-thread">
              <tr>
                  <th>No.</th>
-                 <th>Kode Material</th>
                  <th>Material</th>
-                 <th>Satuan</th>
-                 <th>Rumus</th>
-                 <th>Status</th>
+                 <th>Tanggal</th>
+                 <th>Kode</th>
+                 <th>No. Polisi</th>
+                 <th>Driver</th>
+                 <th>Suplier</th>
+                 <th>Volume</th>
+                 <th>Berat Total</th>
+                 <th>Berat Kendaraan</th>
+                 <th>Berat Muatan</th>
                  <th class="text-end">Action</th>
              </tr>
          </thead>
@@ -21,14 +26,14 @@
  <script>
      $(document).ready(function() {
          // Panggil fungsi inisialisasi
-         initMaterialTable();
+         initPerjalananTable();
      });
 
      // 1. Service: Fungsi untuk menyediakan data
-     function getMaterialService() {
+     function getPerjalananService() {
          // Kita mengembalikan objek AJAX agar bisa digunakan oleh DataTable
          return {
-             "url": "/material/getMaterial", // Menggunakan route name Laravel
+             "url": "/perjalanan/getPerjalanan", // Menggunakan route name Laravel
              "type": "GET",
              "dataSrc": function(json) {
                  // Memastikan data yang diterima sesuai struktur
@@ -38,15 +43,15 @@
      }
 
      // 2. Logic: Fungsi untuk inisialisasi DataTable
-     function initMaterialTable() {
-         if ($('#materialTable').length > 0) {
-             $('#materialTable').DataTable({
+     function initPerjalananTable() {
+         if ($('#perjalananTable').length > 0) {
+             $('#perjalananTable').DataTable({
                  "destroy": true,
                  "pagingType": "simple_numbers", // Menampilkan nomor halaman lengkap
                  "serverSide": false,
 
                  // PERUBAHAN DI SINI: Gunakan "ajax", bukan "data"
-                 "ajax": getMaterialService(),
+                 "ajax": getPerjalananService(),
 
                  "columns": [{
                          "data": null,
@@ -55,26 +60,34 @@
                          }
                      },
                      {
+                         "data": "material.nama"
+                     },
+                     {
+                         "data": "tanggal"
+                     },
+                     {
                          "data": "kode"
                      },
                      {
-                         "data": "nama"
+                         "data": "kendaraan.no_polisi"
                      },
                      {
-                         "data": "satuan"
+                         "data": "driver.nama"
                      },
                      {
-                         "data": "rumus"
+                         "data": "suplier.nama"
                      },
                      {
-                         "data": "status",
-                         "render": function(data) {
-                             if (data == 1) {
-                                 return `<span class="badge bg-success">ACTIVE</span>`;
-                             } else {
-                                 return `<span class="badge bg-danger">INACTIVE</span>`;
-                             }
-                         }
+                         "data": "volume"
+                     },
+                     {
+                         "data": "berat_total"
+                     },
+                     {
+                         "data": "berat_kendaraan"
+                     },
+                     {
+                         "data": "berat_muatan"
                      },
                      {
                          "data": null,

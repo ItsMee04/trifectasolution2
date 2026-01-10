@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama', 100);
             $table->string('kontak', 100);
             $table->text('alamat');
-            $table->string('image', 100);
+            $table->string('image', 100)->nullable();
             $table->integer('status')->unsigned()->default(1);
             $table->timestamps();
         });
