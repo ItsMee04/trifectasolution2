@@ -64,4 +64,96 @@ class PerjalananController extends Controller
             'data' => $perjalanan
         ], 201);
     }
+
+    public function editPerjalanan($id)
+    {
+        $perjalanan = Perjalanan::with(['material', 'kendaraan', 'driver', 'suplier'])->find($id);
+
+        if (!$perjalanan) {
+            return response()->json([
+                'status' => 404,
+                'success' => false,
+                'message' => 'Perjalanan not found.',
+                'data' => null
+            ]);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'message' => 'Perjalanan retrieved successfully.',
+            'data' => $perjalanan
+        ], 200);
+    }
+
+    public function updatePerjalanan(Request $request, $id)
+    {
+        $perjalanan = Perjalanan::find($id);
+
+        if (!$perjalanan) {
+            return response()->json([
+                'status' => 404,
+                'success' => false,
+                'message' => 'Perjalanan not found.',
+                'data' => null
+            ]);
+        }
+
+        $request->validate([
+            'editTanggal'       => 'required|date',
+            'editMaterial_id'   => 'required|exists:material,id',
+            'editKode'          => 'required|string',
+            'editKendaraan_id'  => 'required|exists:kendaraan,id',
+            'editDriver_id'     => 'required|exists:driver,id',
+            'editSuplier_id'    => 'required|exists:suplier,id',
+            'editVolume'        => 'required',
+            'editBerat_total'   => 'required',
+            'editBerat_kendaraan' => 'required',
+            'editBerat_muatan'  => 'required',
+        ]);
+
+        $perjalanan->update([
+            'tanggal'       => $request->editTanggal,
+            'material_id'   => $request->editMaterial_id,
+            'kode'          => strtoupper($request->editKode),
+            'kendaraan_id'  => $request->editKendaraan_id,
+            'driver_id'     => $request->editDriver_id,
+            'suplier_id'    => $request->editSuplier_id,
+            'volume'        => $request->editVolume,
+            'berat_total'   => $request->editBerat_total,
+            'berat_kendaraan' => $request->editBerat_kendaraan,
+            'berat_muatan'  => $request->editBerat_muatan,
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'message' => 'Perjalanan updated successfully.',
+            'data' => $perjalanan
+        ], 200);
+    }
+
+    public function deletePerjalanan($id)
+    {
+        $perjalanan = Perjalanan::find($id);
+
+        if (!$perjalanan) {
+            return response()->json([
+                'status' => 404,
+                'success' => false,
+                'message' => 'Perjalanan not found.',
+                'data' => null
+            ]);
+        }
+
+        $perjalanan->status = 0;
+        $perjalanan->save();
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'message' => 'Perjalanan deleted successfully.',
+            'data' => null
+        ], 200);
+    }
 }

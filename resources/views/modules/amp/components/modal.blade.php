@@ -153,7 +153,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label> Material <span class="login-danger">*</span></label>
-                                    <select class="form-control" id="editselectMaterial" name="editrole_id">
+                                    <select class="form-control" id="editselectMaterial" name="editMaterial_id">
                                         <option>Memuat data...</option>
                                     </select>
                                 </div>
@@ -174,7 +174,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label> No Polisi <span class="login-danger">*</span></label>
-                                    <select class="form-control" id="editselectKendaraan" name="editkendaraan_id">
+                                    <select class="form-control" id="editselectKendaraan" name="editKendaraan_id">
                                         <option>Memuat data...</option>
                                     </select>
                                 </div>
@@ -186,7 +186,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label>Driver <span class="login-danger">*</span></label>
-                                    <select class="form-control" id="editselectDriver" name="editdriver_id">
+                                    <select class="form-control" id="editselectDriver" name="editDriver_id">
                                         <option>Memuat data...</option>
                                     </select>
                                 </div>
@@ -196,7 +196,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label> Suplier <span class="login-danger">*</span></label>
-                                    <select class="form-control" id="editselectSuplier" name="editsuplier_id">
+                                    <select class="form-control" id="editselectSuplier" name="editSuplier_id">
                                         <option>Memuat data...</option>
                                     </select>
                                 </div>
@@ -217,7 +217,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label>Berat Total <span class="login-danger">*</span></label>
-                                    <input type="text" class="form-control" id="editBeratTotal" name="editBeratTotal"
+                                    <input type="text" class="form-control" id="editBeratTotal" name="editBerat_total"
                                         placeholder="Masukan Berat Total" required>
                                 </div>
                             </div>
@@ -229,7 +229,7 @@
                                 <div class="form-group local-forms mb-3">
                                     <label>Berat Kendaraan <span class="login-danger">*</span></label>
                                     <input type="text" class="form-control" id="editBeratKendaraan"
-                                        name="editBeratKendaraan" placeholder="Masukan Berat Kendaraan" required>
+                                        name="editBerat_kendaraan" placeholder="Masukan Berat Kendaraan" required>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +237,7 @@
                             <div class="mb-4">
                                 <div class="form-group local-forms mb-3">
                                     <label>Berat Muatan <span class="login-danger">*</span></label>
-                                    <input type="text" class="form-control" id="editBeratMuatan" name="editBeratMuatan"
+                                    <input type="text" class="form-control" id="editBeratMuatan" name="editBerat_muatan"
                                         placeholder="Masukan Berat Muatan" required>
                                 </div>
                             </div>

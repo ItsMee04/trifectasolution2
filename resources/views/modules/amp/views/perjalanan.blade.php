@@ -53,104 +53,84 @@
     $(document).ready(function() {
         // --- LOGIC: MEMBUKA MODAL TAMBAH MATERIAL & LOAD DATA MATERIAL ---
         function loadMaterial() {
-            let select = $('#selectMaterial');
+            const selectAdd = $('#selectMaterial');
+            const selectEdit = $('#editselectMaterial'); // ID di Modal Edit (sesuai kode Anda)
 
             $.ajax({
-                url: '/material/getMaterial', // Sesuaikan dengan route Laravel Anda
+                url: '/material/getMaterial',
                 type: 'GET',
                 success: function(response) {
-                    if (response.success) {
-                        // Kosongkan select dan beri opsi default
-                        select.empty();
-                        select.append('<option value="">Pilih Material</option>');
-
-                        // Looping data dari backend
-                        $.each(response.data, function(key, material) {
-                            select.append(
-                                `<option value="${material.id}">${material.nama}</option>`);
+                    if (response.data) {
+                        let options = '<option value="">Pilih Material</option>';
+                        $.each(response.data, function(key, item) {
+                            options += `<option value="${item.id}">${item.nama}</option>`;
                         });
+                        selectAdd.html(options);
+                        selectEdit.html(options);
                     }
-                },
-                error: function() {
-                    select.html('<option value="">Gagal memuat data</option>');
                 }
             });
         }
 
         // --- LOGIC: LOAD DATA KENDARAAN ---
         function loadKendaraan() {
-            const select = $('#selectKendaraan');
+            const selectAdd = $('#selectKendaraan'); // ID di Modal Tambah
+            const selectEdit = $('#editselectKendaraan'); // ID di Modal Edit (sesuai kode Anda)
 
             $.ajax({
-                url: '/kendaraan/getKendaraan', // Sesuaikan dengan route Laravel Anda
+                url: '/kendaraan/getKendaraan',
                 type: 'GET',
                 success: function(response) {
-                    if (response.success) {
-                        // Kosongkan select dan beri opsi default
-                        select.empty();
-                        select.append('<option value="">Pilih No Polisi</option>');
-
-                        // Looping data dari backend
-                        $.each(response.data, function(key, kendaraan) {
-                            select.append(
-                                `<option value="${kendaraan.id}">${kendaraan.nomor}</option>`);
+                    if (response.data) {
+                        let options = '<option value="">Pilih No Polisi</option>';
+                        $.each(response.data, function(key, item) {
+                            options += `<option value="${item.id}">${item.nomor}</option>`;
                         });
+                        selectAdd.html(options);
+                        selectEdit.html(options);
                     }
-                },
-                error: function() {
-                    select.html('<option value="">Gagal memuat data</option>');
                 }
             });
         }
 
         // --- LOGIC: LOAD DATA DRIVER ---
         function loadDriver() {
-            const select = $('#selectDriver');
+            const selectAdd = $('#selectDriver'); // ID di Modal Tambah
+            const selectEdit = $('#editselectDriver'); // ID di Modal Edit (sesuai kode Anda)
 
             $.ajax({
-                url: '/driver/getDriver', // Sesuaikan dengan route Laravel Anda
+                url: '/driver/getDriver',
                 type: 'GET',
                 success: function(response) {
-                    if (response.success) {
-                        // Kosongkan select dan beri opsi default
-                        select.empty();
-                        select.append('<option value="">Pilih Driver</option>');
-
-                        // Looping data dari backend
-                        $.each(response.data, function(key, driver) {
-                            select.append(
-                                `<option value="${driver.id}">${driver.nama}</option>`);
+                    if (response.data) {
+                        let options = '<option value="">Pilih Driver</option>';
+                        $.each(response.data, function(key, item) {
+                            options += `<option value="${item.id}">${item.nama}</option>`;
                         });
+                        selectAdd.html(options);
+                        selectEdit.html(options);
                     }
-                },
-                error: function() {
-                    select.html('<option value="">Gagal memuat data</option>');
                 }
             });
         }
 
         // --- LOGIC: LOAD DATA SUPLIER ---
         function loadSuplier() {
-            const select = $('#selectSuplier');
+            const selectAdd = $('#selectSuplier'); // ID di Modal Tambah
+            const selectEdit = $('#editselectSuplier'); // ID di Modal Edit (sesuai kode Anda)
 
             $.ajax({
-                url: '/suplier/getSuplier', // Sesuaikan dengan route Laravel Anda
+                url: '/suplier/getSuplier',
                 type: 'GET',
                 success: function(response) {
-                    if (response.success) {
-                        // Kosongkan select dan beri opsi default
-                        select.empty();
-                        select.append('<option value="">Pilih Suplier</option>');
-
-                        // Looping data dari backend
-                        $.each(response.data, function(key, suplier) {
-                            select.append(
-                                `<option value="${suplier.id}">${suplier.nama}</option>`);
+                    if (response.data) {
+                        let options = '<option value="">Pilih Suplier</option>';
+                        $.each(response.data, function(key, item) {
+                            options += `<option value="${item.id}">${item.nama}</option>`;
                         });
+                        selectAdd.html(options);
+                        selectEdit.html(options);
                     }
-                },
-                error: function() {
-                    select.html('<option value="">Gagal memuat data</option>');
                 }
             });
         }
@@ -205,6 +185,10 @@
 
         // --- LOGIC: MEMBUKA MODAL EDIT & AMBIL DATA ---
         $(document).on('click', '.btn-edit', function() {
+            loadMaterial(); // Panggil fungsi untuk memuat data material
+            loadKendaraan(); // Panggil fungsi untuk memuat data kendaraan
+            loadDriver(); // Panggil fungsi untuk memuat data driver
+            loadSuplier(); // Panggil fungsi untuk memuat data suplier
             let id = $(this).data('id');
 
             // Tampilkan Loading pada tombol atau UI
@@ -213,33 +197,49 @@
 
             // Panggil Service untuk ambil data satu material (AJAX GET)
             $.ajax({
-                url: `/material/editMaterial/${id}`, // Sesuaikan dengan route Laravel Anda
+                url: `/perjalanan/editPerjalanan/${id}`, // Sesuaikan dengan route Laravel Anda
                 type: 'GET',
                 success: function(response) {
                     // Isi form modal edit dengan data dari database
-                    $('#formEditMaterial').find('input[name="editkode"]').val(response
+                    $('#formEditPerjalanan').find('input[name="editTanggal"]').val(response
+                        .data.tanggal);
+                    $('#formEditPerjalanan').find('#editselectMaterial').val(response.data
+                        .material_id).change();
+                    $('#formEditPerjalanan').find('input[name="editKode"]').val(response
                         .data.kode);
-                    $('#formEditMaterial').find('input[name="editnama"]').val(response
-                        .data.nama);
-                    $('#formEditMaterial').find('input[name="editsatuan"]').val(response
-                        .data.satuan);
-                    $('#formEditMaterial').find('textarea[name="editrumus"]').val(response
-                        .data.rumus);
+                    $('#formEditPerjalanan').find('#editselectKendaraan').val(response.data
+                        .kendaraan_id).change();
+                    $('#formEditPerjalanan').find('#editselectDriver').val(response.data
+                        .driver_id).change();
+                    $('#formEditPerjalanan').find('#editselectSuplier').val(response.data
+                        .suplier_id).change();
+                    $('#formEditPerjalanan').find('input[name="editVolume"]').val(response
+                        .data.volume);
+                    $('#formEditPerjalanan').find('input[name="editBerat_total"]').val(
+                        response
+                        .data.berat_total);
+                    $('#formEditPerjalanan').find('input[name="editBerat_kendaraan"]').val(
+                        response
+                        .data.berat_kendaraan);
+                    $('#formEditPerjalanan').find('input[name="editBerat_muatan"]').val(
+                        response
+                        .data.berat_muatan);
 
                     // Simpan ID di input hidden atau atribut form untuk proses update
-                    $('#formEditMaterial').attr('action', `/material/updateMaterial/${id}`);
+                    $('#formEditPerjalanan').attr('action',
+                        `/perjalanan/updatePerjalanan/${id}`);
                 },
                 error: function() {
-                    toastr.error("Gagal mengambil data material");
+                    toastr.error("Gagal mengambil data perjalanan");
                 }
             });
         });
 
-        // --- LOGIC: SUBMIT FORM EDIT MATERIAL ---
-        $('#formEditMaterial').on('submit', function(e) {
+        // --- LOGIC: SUBMIT FORM EDIT PERJALANAN ---
+        $('#formEditPerjalanan').on('submit', function(e) {
             e.preventDefault();
 
-            const btn = $('#btnUpdateMaterial');
+            const btn = $('#btnUpdatePerjalanan');
             const formData = new FormData(this); // Sudah benar menggunakan FormData
             const url = $(this).attr('action');
 
@@ -267,10 +267,10 @@
                             tapToDismiss: !1,
                         });
 
-                    $('#formEditMaterial')[0].reset();
+                    $('#formEditPerjalanan')[0].reset();
 
-                    btn.prop('disabled', false).html('Simpan Material');
-                    $('#materialTable').DataTable().ajax.reload();
+                    btn.prop('disabled', false).html('Simpan Perjalanan');
+                    $('#perjalananTable').DataTable().ajax.reload();
                 },
                 error: function(xhr) {
                     let errorMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr
@@ -282,17 +282,17 @@
                             tapToDismiss: !1,
                         }
                     );
-                    btn.prop('disabled', false).html('Simpan Material');
+                    btn.prop('disabled', false).html('Simpan Perjalanan');
                 }
             });
         });
 
-        // --- LOGIC: HAPUS MATERIAL DENGAN SWEETALERT2 ---
+        // --- LOGIC: HAPUS PERJALANAN DENGAN SWEETALERT2 ---
         $(document).on('click', '.btn-delete', function() {
             let id = $(this).data('id');
             Swal.fire({
                 title: 'Apakah Anda yakin?',
-                text: "Data material akan dihapus secara permanen!",
+                text: "Data perjalanan akan dihapus secara permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -303,7 +303,7 @@
                 if (result.isConfirmed) {
                     // Panggil service untuk menghapus data
                     $.ajax({
-                        url: `/material/deleteMaterial/${id}`,
+                        url: `/perjalanan/deletePerjalanan/${id}`,
                         type: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -311,11 +311,11 @@
                         success: function(response) {
                             Swal.fire(
                                 'Dihapus!',
-                                'Data material telah dihapus.',
+                                'Data perjalanan telah dihapus.',
                                 'success'
                             );
                             // Refresh tabel
-                            $('#materialTable').DataTable().ajax.reload();
+                            $('#perjalananTable').DataTable().ajax.reload();
                         },
                         error: function() {
                             Swal.fire(
